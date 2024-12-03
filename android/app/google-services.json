@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "897188878909",
+    "project_id": "iworkout-e9153",
+    "storage_bucket": "iworkout-e9153.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:897188878909:android:18e40483043ccb01492854",
+        "android_client_info": {
+          "package_name": "com.example.iworkout"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBCeixJVHFbke6qI1z47k_PnNWYeYjVwRc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
