@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:iworkout/features/workout/presentation/pages/home_page.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -20,15 +21,11 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
 
     FirebaseFirestore.instance.collection("users").doc("efsd").set({
-      "hello": "world"
+      "hello": "ghjghj"
     });
 
     return const MaterialApp(
-      home: Scaffold(
-        body: Center(
-          child: Text('dsfsdf!'),
-        ),
-      ),
+      home: HomePage()
     );
   }
 }
