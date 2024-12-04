@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iworkout/core/common/blocs/button/button_cubit.dart';
@@ -7,6 +8,7 @@ import 'package:iworkout/features/auth/domain/usecases/signin_with_google.dart';
 import 'package:iworkout/service_locater.dart';
 
 
+@RoutePage()
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
 

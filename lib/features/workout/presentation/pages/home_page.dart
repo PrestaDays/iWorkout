@@ -1,8 +1,10 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:iworkout/features/workout/presentation/screens/home_screen.dart';
 import 'package:iworkout/features/workout/presentation/screens/progress_screen.dart';
 import 'package:iworkout/features/workout/presentation/screens/workout_screen.dart';
 
+@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 

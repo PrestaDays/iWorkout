@@ -1,9 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:iworkout/features/auth/presentation/pages/login_page.dart';
+import 'package:iworkout/core/routes/app_router.dart';
 import 'package:iworkout/firebase_options.dart';
 import 'package:iworkout/service_locater.dart';
-
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -19,10 +19,13 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(FirebaseAuth.instance.currentUser);
 
-   return const MaterialApp(
-     title: "iWorkout",
-      home: LoginPage()
+    final appRouter = AppRouter();
+
+    return MaterialApp.router(
+      routerConfig: appRouter.config(),
+      title: 'Jealousy',
     );
   }
 }
