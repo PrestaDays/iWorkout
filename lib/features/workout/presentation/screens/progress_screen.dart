@@ -10,15 +10,15 @@ class ProgressScreen extends StatelessWidget {
         title: const Text('Progrès'),
       ),
       body: const Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            Text(
               'Suivi de vos progrès',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
-            const SizedBox(height: 16),
+            SizedBox(height: 16),
             // Expanded(
             //   child: LineChart(
             //     LineChartData(
