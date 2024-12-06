@@ -70,7 +70,8 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     // Increased spacing before the button
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                      },
                       child: const Text(
                         'Commencer',
                         style: TextStyle(fontSize: 16),

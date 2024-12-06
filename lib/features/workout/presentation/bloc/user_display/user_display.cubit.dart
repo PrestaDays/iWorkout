@@ -11,7 +11,7 @@ class UserDisplayCubit extends Cubit<UserDisplayState> {
     var result = await sl<GetUserUseCase>().call();
 
     result.fold((error) {
-      emit(LoadUserFailure(errorMessage: error));
+      emit(LoadUserFailure(errorMessage: error.toString()));
     }, (data) {
       emit(UserLoaded(userEntity: data));
     });

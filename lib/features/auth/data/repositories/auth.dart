@@ -24,7 +24,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either<String, UserEntity>> getUser() async {
+  Future<Either<Error, UserEntity>> getUser() async {
     Either result = await sl<AuthApiService>().getUser();
     return result.fold((error) {
       return Left(error);

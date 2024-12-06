@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-ThemeData darkTheme  = ThemeData(
+ThemeData darkTheme = ThemeData(
   primaryColor: Colors.black,
   scaffoldBackgroundColor: Colors.grey[900],
-
+  iconTheme: const IconThemeData(
+    color: Colors.white, // Change your icon color here
+  ),
   elevatedButtonTheme: ElevatedButtonThemeData(
     style: ElevatedButton.styleFrom(
       foregroundColor: Colors.white,
       backgroundColor: Colors.blue[700],
       // White text on the button
-      padding: const EdgeInsets.symmetric(
-          horizontal: 24, vertical: 12),
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(8),
       ),
@@ -28,8 +29,8 @@ ThemeData darkTheme  = ThemeData(
         fontFamily: "Poppins",
         fontSize: 22,
         fontWeight: FontWeight.bold
-      //  fontFamily: 'Poppins',
-    ),
+        //  fontFamily: 'Poppins',
+        ),
   ),
   cardTheme: CardTheme(
     color: Colors.grey[900], // Dark background for the card
@@ -42,5 +43,4 @@ ThemeData darkTheme  = ThemeData(
     bodyLarge: TextStyle(color: Colors.white),
     bodyMedium: TextStyle(color: Colors.white70),
   ),
-  iconTheme: const IconThemeData(color: Colors.white),
 );

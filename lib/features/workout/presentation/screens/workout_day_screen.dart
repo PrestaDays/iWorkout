@@ -1,25 +1,16 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:iworkout/features/workout/presentation/bloc/workout_day/workout_day_cubit.dart';
-import 'package:iworkout/features/workout/presentation/bloc/workout_day/workout_day_event.dart';
-import 'package:iworkout/features/workout/presentation/bloc/workout_day/workout_day_state.dart';
 
+
+@RoutePage()
 class WorkoutDayScreen extends StatelessWidget {
-  const WorkoutDayScreen({super.key});
+  final String id;
+  final String day;
+
+  const WorkoutDayScreen({super.key, required this.id, required this.day});
 
   @override
   Widget build(BuildContext context) {
-
-    return BlocProvider(
-        create: (context) => WorkoutDayBloc(),
-        child: BlocBuilder<WorkoutDayBloc, WorkoutDayState>(builder: (context, state) {
-          print("state $state");
-          return ElevatedButton(onPressed: () {
-            context.read<WorkoutDayBloc>().add(AddWorkoutExec(exec: "exec"));
-          }, child: const Text("click me"));
-        })
-    );
+    return const Text("WorkoutDayScreen");
   }
-  
 }
-
