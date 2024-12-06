@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:iworkout/features/workout/presentation/screens/home_screen.dart';
 import 'package:iworkout/features/workout/presentation/screens/progress_screen.dart';
 import 'package:iworkout/features/workout/presentation/screens/workout_screen.dart';
+import 'package:iworkout/features/workout/presentation/widgets/floating_bottom_navigation_bar.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -20,32 +21,18 @@ class _HomePageState extends State<HomePage> {
     const ProgressScreen(),
   ];
 
+  void onItemTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _children[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
-        items: const [
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Accueil',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.fitness_center),
-            label: 'Entraînement',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.show_chart),
-            label: 'Progrès',
-          ),
-        ],
-      ),
+        body: _children[_currentIndex],
+        bottomNavigationBar:
+            FloatingBottomNavigationBar(onItemTapped: onItemTapped)
     );
   }
 }

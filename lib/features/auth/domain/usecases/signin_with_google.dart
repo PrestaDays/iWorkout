@@ -7,7 +7,6 @@ import 'package:iworkout/service_locater.dart';
 class SigninWithGoogleUseCase implements UseCase<Either, dynamic> {
   @override
   Future<Either> call({param}) async {
-    print("HEREEEEE");
     return sl<AuthRepository>().signInWithGoogle();
   }
 }

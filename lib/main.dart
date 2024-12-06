@@ -17,6 +17,7 @@ void main() async {
   runApp(const MainApp());
 }
 
+
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
 
@@ -28,7 +29,8 @@ class MainApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: appRouter.config(),
       theme: darkTheme,
-      title: 'Jealousy',
+      debugShowCheckedModeBanner: false,
+      title: 'iWorkout',
     );
   }
 }

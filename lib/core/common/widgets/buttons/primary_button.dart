@@ -3,19 +3,18 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iworkout/core/common/blocs/button/button_cubit.dart';
 import 'package:iworkout/core/common/blocs/button/button_state.dart';
 
-
 class PrimaryButton extends StatelessWidget {
   final VoidCallback onPressed;
-  final String title;
+  final Widget content;
   final double? height;
   final double? width;
 
-  const PrimaryButton({
-    required this.onPressed,
-    this.title = '',
-    this.height,
-    this.width,
-    super.key});
+  const PrimaryButton(
+      {required this.onPressed,
+      required this.content,
+      this.height,
+      this.width,
+      super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,7 +34,7 @@ class PrimaryButton extends StatelessWidget {
         style: ElevatedButton.styleFrom(
           disabledBackgroundColor: Colors.grey,
           minimumSize:
-          Size(width ?? MediaQuery.of(context).size.width, height ?? 60),
+              Size(width ?? MediaQuery.of(context).size.width, height ?? 60),
         ),
         child: const CircularProgressIndicator(
           color: Colors.white,
@@ -45,7 +44,7 @@ class PrimaryButton extends StatelessWidget {
   Widget _initial(BuildContext context) {
     return Container(
       decoration:
-      BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [
+          BoxDecoration(borderRadius: BorderRadius.circular(16), boxShadow: [
         BoxShadow(
           color: const Color(0xff3461FD).withOpacity(0.8),
           offset: const Offset(0, 5),
@@ -56,13 +55,9 @@ class PrimaryButton extends StatelessWidget {
           onPressed: onPressed,
           style: ElevatedButton.styleFrom(
             minimumSize:
-            Size(width ?? MediaQuery.of(context).size.width, height ?? 60),
+                Size(width ?? MediaQuery.of(context).size.width, height ?? 60),
           ),
-          child: Text(
-            title,
-            style: const TextStyle(
-                color: Colors.white, fontWeight: FontWeight.w400),
-          )),
+          child: content),
     );
   }
 }

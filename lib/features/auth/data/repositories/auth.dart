@@ -1,6 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:iworkout/features/auth/data/models/user.dart';
 import 'package:iworkout/features/auth/data/source/auth_firebase_service.dart';
+import 'package:iworkout/features/auth/domain/entities/user.dart';
 import 'package:iworkout/features/auth/domain/repositories/auth.dart';
 import 'package:iworkout/service_locater.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -9,7 +10,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthRepositoryImpl extends AuthRepository {
   @override
   Future<Either> signInWithGoogle() async {
-    print("signInWithGoogle");
     Either result = await sl<AuthApiService>().signInWithGoogle();
     return result.fold((error) {
       return Left(error);
@@ -24,7 +24,7 @@ class AuthRepositoryImpl extends AuthRepository {
   }
 
   @override
-  Future<Either> getUser() async {
+  Future<Either<String, UserEntity>> getUser() async {
     Either result = await sl<AuthApiService>().getUser();
     return result.fold((error) {
       return Left(error);
