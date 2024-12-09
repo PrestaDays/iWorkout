@@ -16,6 +16,8 @@ class AppRouter extends RootStackRouter {
 
     AutoRoute(path: "/login", page: LoginRoute.page),
 
-    AutoRoute(path: "/login", page: WorkoutDayRoute.page),
+    AutoRoute(path: "/workout-day", page: WorkoutDayRoute.page),
+    AutoRoute(path: "/workout-add", page: AddWorkoutRoute.page),
+
   ];
 }

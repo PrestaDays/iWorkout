@@ -2,9 +2,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iworkout/core/routes/app_router.gr.dart';
+import 'package:iworkout/features/workout/domain/entities/workout.dart';
 import 'package:iworkout/features/workout/presentation/bloc/workouts/workouts_cubit.dart';
 import 'package:iworkout/features/workout/presentation/bloc/workouts/workouts_state.dart';
-import 'package:iworkout/features/workout/presentation/screens/add_exercice.dart';
+import 'package:iworkout/features/workout/presentation/pages/add_workout_page.dart';
 
 class WorkoutScreen extends StatelessWidget {
   const WorkoutScreen({super.key});
@@ -27,15 +28,18 @@ class WorkoutScreen extends StatelessWidget {
             const SizedBox(height: 16),
             BlocProvider(
               create: (context) => WorkoutsCubit()..execute(),
-              child: BlocBuilder<WorkoutsCubit, WorkoutsState>(builder: (context, state) {
+              child: BlocBuilder<WorkoutsCubit, WorkoutsState>(
+                  builder: (context, state) {
                 if (state is WorkoutsLoading) {
-                  return const Center(child: CircularProgressIndicator(color: Colors.white));
+                  return const Center(
+                      child: CircularProgressIndicator(color: Colors.white));
                 } else if (state is WorkoutsLoadingFailure) {
                   return Center(child: Text(state.errorMessage));
                 } else if (state is WorkoutsLoaded) {
                   return Expanded(
                     child: ListView(
-                      children: state.workouts.map((workout) => _buildWorkoutCard('Séance ${workout.name}', workout.day, 5, context)).toList(),
+                      children: state.workouts
+                          .map((workoutItem) => _buildWorkoutCard(workoutItem, context)).toList(),
                     ),
                   );
                 }
@@ -47,35 +51,43 @@ class WorkoutScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const AddExerciseScreen()),
-          );
+          context.router.push(const AddWorkoutRoute());
         },
         child: const Icon(Icons.add),
       ),
     );
   }
 
-  Widget _buildWorkoutCard(
-      String name, String day, int exercises, BuildContext context) {
+  Widget _buildWorkoutCard(WorkoutItem workoutItem, BuildContext context) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              name,
-              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+              children: [
+                Text(
+                  'Séance ${workoutItem.name}',
+                  style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
+                IconButton(
+
+                  onPressed: () {
+                   // context.router.push(AddWorkoutRoute(id: workoutItem.id));
+                  },
+                  icon: const Icon(Icons.close, color: Colors.redAccent,),
+                ),
+              ],
             ),
-            const SizedBox(height: 8),
-            Text('Jour: $day'),
-            Text('Exercices: $exercises'),
+            Text('Jour: ${workoutItem.day}'),
+            Text('Exercices: ${workoutItem.nbrOfExercice}'),
             const SizedBox(height: 8),
             ElevatedButton(
               onPressed: () {
-                context.router.push(WorkoutDayRoute(id: 'id', day: 'Lundi'));
+                context.router.push(WorkoutDayRoute(id: workoutItem.id, day: workoutItem.day));
               },
               child: const Text('Voir détails'),
             ),

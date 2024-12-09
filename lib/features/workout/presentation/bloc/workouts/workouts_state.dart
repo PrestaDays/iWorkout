@@ -5,7 +5,7 @@ abstract class WorkoutsState {}
 class WorkoutsLoading extends WorkoutsState {}
 
 class WorkoutsLoaded extends WorkoutsState {
-  final List<Workout> workouts;
+  final List<WorkoutItem> workouts;
 
   WorkoutsLoaded({required this.workouts});
 }

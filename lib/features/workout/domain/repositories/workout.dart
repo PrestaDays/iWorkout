@@ -3,5 +3,5 @@ import 'package:iworkout/features/workout/data/models/get_workouts_req_params.da
 import 'package:iworkout/features/workout/domain/entities/workout.dart';
 
 abstract class WorkoutRepository {
-  Future<Either<Error, List<Workout>>> getWorkouts(GetWorkoutsReqParams param);
+  Future<Either<Error, List<WorkoutItem>>> getWorkouts(GetWorkoutsReqParams param);
 }

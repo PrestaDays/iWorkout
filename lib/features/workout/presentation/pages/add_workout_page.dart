@@ -1,13 +1,15 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
-class AddExerciseScreen extends StatefulWidget {
-  const AddExerciseScreen({super.key});
+@RoutePage()
+class AddWorkoutPage extends StatefulWidget {
+  const AddWorkoutPage({super.key});
 
   @override
-  State<AddExerciseScreen> createState() => _AddExerciseScreenState();
+  State<AddWorkoutPage> createState() => _AddWorkoutScreenState();
 }
 
-class _AddExerciseScreenState extends State<AddExerciseScreen> {
+class _AddWorkoutScreenState extends State<AddWorkoutPage> {
   final _formKey = GlobalKey<FormState>();
   String _name = '';
   int _sets = 0;

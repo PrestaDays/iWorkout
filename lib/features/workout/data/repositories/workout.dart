@@ -7,7 +7,7 @@ import 'package:iworkout/service_locater.dart';
 
 class WorkoutRepositoryImpl extends WorkoutRepository {
   @override
-  Future<Either<Error, List<Workout>>> getWorkouts(
+  Future<Either<Error, List<WorkoutItem>>> getWorkouts(
       GetWorkoutsReqParams param) async {
     try {
       var workouts =
