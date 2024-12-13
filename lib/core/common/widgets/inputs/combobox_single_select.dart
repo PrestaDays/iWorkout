@@ -5,10 +5,12 @@ import 'package:moon_design/moon_design.dart';
 class ComboboxSingleSelect extends StatefulWidget {
   final List<String> options;
   final List<TextInputFormatter> formatters;
+  final String hintText;
 
   const ComboboxSingleSelect({
     required this.options,
     this.formatters = const [],
+    this.hintText = "Sélectionnez une option",
     super.key,
   });
 
@@ -111,7 +113,7 @@ class _ComboboxSingleSelectState extends State<ComboboxSingleSelect> {
         ),
         child: MoonTextInput(
           focusNode: _focusNode,
-          hintText: "Select an option",
+          hintText: widget.hintText,
           controller: _searchController,
           inputFormatters: widget.formatters,
           onTap: () => _performSearch(),
