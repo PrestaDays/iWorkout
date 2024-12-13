@@ -589,6 +589,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.0"
+  moon_design:
+    dependency: "direct main"
+    description:
+      name: moon_design
+      sha256: ef9cfb926e8f3cd2a09f605d3ec3e9777ac2785bce624f307eeee929ff97e6a3
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.7"
+  moon_icons:
+    dependency: transitive
+    description:
+      name: moon_icons
+      sha256: f6643ef7c482f80126e2bf5654b8702794330251f8b580e56772245d311f8c35
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.5.0"
+  moon_tokens:
+    dependency: transitive
+    description:
+      name: moon_tokens
+      sha256: "5ad3d6ed3204b05b0020af1e578b91cbf7aa6f654d3c1d5a5c14b4fa29c30f18"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.6"
   nested:
     dependency: transitive
     description:
