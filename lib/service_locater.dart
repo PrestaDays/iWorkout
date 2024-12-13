@@ -28,5 +28,4 @@ void setupServiceLocator() {
   sl.registerSingleton<LogoutUseCase>(LogoutUseCase());
   sl.registerSingleton<GetUserUseCase>(GetUserUseCase());
   sl.registerSingleton<GetWorkoutUseCase>(GetWorkoutUseCase());
-
 }
