@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iworkout/core/common/widgets/buttons/primary_button.dart';
 import 'package:iworkout/features/workout/presentation/bloc/user_display/user_display.cubit.dart';
 import 'package:iworkout/features/workout/presentation/bloc/user_display/user_display_state.dart';
+import 'package:moon_design/moon_design.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title: const Row(children: [
@@ -69,13 +73,12 @@ class HomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     // Increased spacing before the button
-                    ElevatedButton(
+                    PrimaryButton(
                       onPressed: () {
                       },
-                      child: const Text(
-                        'Commencer',
-                        style: TextStyle(fontSize: 16),
-                      ),
+                      buttonSize: MoonButtonSize.lg,
+                      content: const Text('Commencer'),
+                      leading: const Icon(Icons.play_arrow),
                     ),
                   ],
                 ),
