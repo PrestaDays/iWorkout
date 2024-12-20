@@ -14,10 +14,12 @@ class AppRouter extends RootStackRouter {
         guards: [AuthGuard()]
     ),
 
+    AutoRoute(path: "/register-enter-user-informations", page: EnterUserInformationsRoute.page),
+
     AutoRoute(path: "/login", page: LoginRoute.page),
 
     AutoRoute(path: "/workout-day", page: WorkoutDayRoute.page),
     AutoRoute(path: "/workout-add", page: AddWorkoutRoute.page),
-
+    
   ];
 }
