@@ -8,7 +8,7 @@ class ConfirmDialog extends StatelessWidget {
   final String content;
   final String confirmText;
   final String cancelText;
-  final VoidCallback onConfirm;
+  final Future<void> Function(BuildContext) onConfirm;
   final VoidCallback onCancel;
 
   const ConfirmDialog({

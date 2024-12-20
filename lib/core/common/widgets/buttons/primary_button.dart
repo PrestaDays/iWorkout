@@ -5,11 +5,8 @@ import 'package:iworkout/core/common/blocs/button/button_state.dart';
 import 'package:iworkout/core/configs/themes/dark_theme.dart';
 import 'package:moon_design/moon_design.dart';
 
-typedef ButtonCallback = void Function();
-typedef ButtonContextCallback = void Function(BuildContext context);
-
 class PrimaryButton extends StatelessWidget {
-  final dynamic onPressed;  // Can accept either ButtonCallback or ButtonContextCallback
+  final Future<void> Function(BuildContext) onPressed;
   final Widget content;
   final Widget? leading;
   final Widget? trailing;
@@ -27,10 +24,7 @@ class PrimaryButton extends StatelessWidget {
     this.leading,
     this.trailing,
     super.key
-  }) : assert(
-  onPressed is ButtonCallback || onPressed is ButtonContextCallback,
-  'onPressed must be either a simple callback or a callback taking BuildContext'
-  );
+  });
 
   static void _defaultOnSuccess() {}
 
@@ -84,13 +78,7 @@ class PrimaryButton extends StatelessWidget {
       ),
       child: MoonFilledButton(
         buttonSize: buttonSize,
-        onTap: () async {
-          if (onPressed is ButtonContextCallback) {
-            (onPressed as ButtonContextCallback)(context);
-          } else {
-            (onPressed as ButtonCallback)();
-          }
-        },
+        onTap: () async => await onPressed(context),
         leading: leading,
         label: content,
         trailing: trailing,

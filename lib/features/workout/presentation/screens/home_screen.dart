@@ -74,7 +74,7 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(height: 16),
                     // Increased spacing before the button
                     PrimaryButton(
-                      onPressed: () {
+                      onPressed: (_) async {
                         // Navigate to the workout screen
                         // context.router.push(const WorkoutRoute());
                       },

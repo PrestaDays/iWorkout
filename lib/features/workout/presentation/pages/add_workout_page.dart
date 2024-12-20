@@ -1,4 +1,3 @@
-import 'package:auto_route/annotations.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,12 +17,19 @@ class AddWorkoutPage extends StatefulWidget {
   State<AddWorkoutPage> createState() => _AddWorkoutScreenState();
 }
 
-
 class _AddWorkoutScreenState extends State<AddWorkoutPage> {
   final TextEditingController _nameTextEditController = TextEditingController();
   String _weekDay = "";
 
-  final List<String> weekDays = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
+  final List<String> weekDays = [
+    "Lundi",
+    "Mardi",
+    "Mercredi",
+    "Jeudi",
+    "Vendredi",
+    "Samedi",
+    "Dimanche"
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -42,9 +48,9 @@ class _AddWorkoutScreenState extends State<AddWorkoutPage> {
                       leading: const Icon(Icons.search, color: Colors.white),
                       textController: _nameTextEditController,
                       validator: (String? value) =>
-                      value != null && value.length < 5
-                          ? "The text should be longer than 5 characters."
-                          : null,
+                          value != null && value.length < 5
+                              ? "The text should be longer than 5 characters."
+                              : null,
                       hintText: "Nom de le la séance",
                     ),
                     const SizedBox(height: 16),
@@ -57,20 +63,24 @@ class _AddWorkoutScreenState extends State<AddWorkoutPage> {
                     ),
                     const SizedBox(height: 16),
                     PrimaryButton(
-                        useCubit: true,
-                        onSuccess: () {
+                      useCubit: true,
+                      onSuccess: () async {
+                        await Future.delayed(const Duration(milliseconds: 300));
+
+                        if (mounted) {
                           context.router.back();
-                        },
-                        onPressed: (context) async {
-                          await BlocProvider.of<ButtonStateCubit>(context).execute(
-                            usecase: sl<CreateWorkoutUseCase>(),
-                            params: CreateWorkoutsReqParams(
+                        }
+                      },
+                      onPressed: (context) async {
+                        await context.read<ButtonStateCubit>().execute(
+                              usecase: sl<CreateWorkoutUseCase>(),
+                              params: CreateWorkoutsReqParams(
                                 name: _nameTextEditController.text,
-                                day: _weekDay
-                            ),
-                          );
-                        },
-                        content: const Text("Créer ma séance")
+                                day: _weekDay,
+                              ),
+                            );
+                      },
+                      content: const Text("Créer ma séance"),
                     )
                   ],
                 );
@@ -80,4 +90,3 @@ class _AddWorkoutScreenState extends State<AddWorkoutPage> {
         ));
   }
 }
-

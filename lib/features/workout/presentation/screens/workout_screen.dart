@@ -85,9 +85,10 @@ class _WorkoutViewState extends State<WorkoutView> {
       floatingActionButton: FloatingActionButton(
         onPressed: () async {
           await context.router.push(const AddWorkoutRoute());
-          if (!mounted) return;
+          if (mounted) {
+            context.read<WorkoutsBloc>().add(FetchWorkouts());
+          };
 
-          context.read<WorkoutsBloc>().add(FetchWorkouts());
         },
         child: const Icon(Icons.add),
       ),
@@ -128,7 +129,7 @@ class WorkoutCard extends StatelessWidget {
                         return ConfirmDialog(
                           title: 'Confirmation',
                           content: 'Veux-tu vraiment supprimer cette séance?',
-                          onConfirm: () {
+                          onConfirm: (_) async {
                             onDelete(workout.id);
                             Navigator.of(dialogContext).pop();
                           },
@@ -147,7 +148,7 @@ class WorkoutCard extends StatelessWidget {
             Text('Exercices: ${workout.nbrOfExercice}'),
             const SizedBox(height: 8),
             PrimaryButton(
-              onPressed: (_) {
+              onPressed: (_) async {
                 context.router.push(
                   WorkoutDayRoute(id: workout.id, day: workout.day),
                 );

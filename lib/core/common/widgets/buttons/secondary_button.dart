@@ -3,7 +3,7 @@ import 'package:iworkout/core/configs/themes/dark_theme.dart';
 import 'package:moon_design/moon_design.dart';
 
 class SecondaryButton extends StatelessWidget {
-  final VoidCallback onPressed;
+  final void Function(BuildContext) onPressed;
   final Widget content;
   final Widget? leading;
   final Widget? trailing;
@@ -23,7 +23,9 @@ class SecondaryButton extends StatelessWidget {
     return MoonOutlinedButton(
       borderColor: PurpleMoonColor,
       buttonSize: buttonSize,
-      onTap: onPressed,
+      onTap: () {
+        onPressed(context);
+      },
       leading: leading,
       label: content,
       trailing: trailing,

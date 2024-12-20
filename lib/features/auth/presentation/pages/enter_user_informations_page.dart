@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:iworkout/core/common/widgets/inputs/combobox_single_select.dart';
 import 'package:iworkout/core/routes/app_router.gr.dart';
 import 'package:iworkout/features/auth/presentation/widget/age_widget.dart';
 
@@ -10,8 +8,8 @@ class EnterUserInformationsPage extends StatelessWidget {
   const EnterUserInformationsPage({super.key});
   @override
   Widget build(BuildContext context) {
-    const AGE_MIN = 16;
-    const AGE_MAX = 99;
+    const ageMin = 16;
+    const ageMax = 99;
 
     
     context.router.replace(const HomeRoute());
@@ -21,7 +19,7 @@ class EnterUserInformationsPage extends StatelessWidget {
         ),
         body: Column(
           children: [
-            AgeWidget(AGE_MIN: AGE_MIN, AGE_MAX: AGE_MAX).build()
+            const AgeWidget(AGE_MIN: ageMin, AGE_MAX: ageMax).build()
           ],
         ));
   }

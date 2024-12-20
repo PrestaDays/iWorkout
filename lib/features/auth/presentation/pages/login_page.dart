@@ -54,7 +54,6 @@ class LoginPage extends StatelessWidget {
                   child: BlocListener<ButtonStateCubit, ButtonState>(
                     listener: (context, state) {
                       if (state is ButtonSuccessState) {
-                        print("HEREEE");
                         context.router.replace(const HomeRoute());
                         return;
                       }
@@ -108,7 +107,7 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
-          onPressed: () {
+          onPressed: (_) {
             context.read<ButtonStateCubit>().execute(
                   usecase: sl<SigninWithGoogleUseCase>(),
                 );
@@ -139,7 +138,7 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
-          onPressed: () {
+          onPressed: (_) {
             throw UnimplementedError("Sign in with Apple is not implemented");
             // context.read<ButtonStateCubit>().excute(
             //       usecase: sl<SigninWithGoogleUseCase>(),
