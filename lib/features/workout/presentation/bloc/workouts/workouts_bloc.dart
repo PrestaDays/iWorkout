@@ -45,8 +45,6 @@ class WorkoutsBloc extends Bloc<WorkoutsEvent, WorkoutsState> {
     var result = await sl<GetWorkoutUseCase>()
         .call(param: GetWorkoutsReqParams(userId: user.id));
 
-    print("RESULTTTT $result");
-
     result.fold(
         (error) => emit(WorkoutsLoadingFailure(errorMessage: error.toString())),
         (data) => emit(WorkoutsLoaded(workouts: data)));

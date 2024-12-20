@@ -3,7 +3,7 @@ import 'package:iworkout/core/common/widgets/buttons/primary_button.dart';
 import 'package:iworkout/core/common/widgets/buttons/secondary_button.dart';
 import 'package:moon_design/moon_design.dart';
 
-class MoonConfirmDialog extends StatelessWidget {
+class ConfirmDialog extends StatelessWidget {
   final String title;
   final String content;
   final String confirmText;
@@ -11,7 +11,7 @@ class MoonConfirmDialog extends StatelessWidget {
   final VoidCallback onConfirm;
   final VoidCallback onCancel;
 
-  const MoonConfirmDialog({
+  const ConfirmDialog({
     super.key,
     required this.title,
     required this.content,

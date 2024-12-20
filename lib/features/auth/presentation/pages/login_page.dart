@@ -109,7 +109,7 @@ class LoginPage extends StatelessWidget {
             ],
           ),
           onPressed: () {
-            context.read<ButtonStateCubit>().excute(
+            context.read<ButtonStateCubit>().execute(
                   usecase: sl<SigninWithGoogleUseCase>(),
                 );
           });

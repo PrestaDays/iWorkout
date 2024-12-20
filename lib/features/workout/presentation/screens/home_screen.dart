@@ -75,6 +75,8 @@ class HomeScreen extends StatelessWidget {
                     // Increased spacing before the button
                     PrimaryButton(
                       onPressed: () {
+                        // Navigate to the workout screen
+                        // context.router.push(const WorkoutRoute());
                       },
                       buttonSize: MoonButtonSize.lg,
                       content: const Text('Commencer'),

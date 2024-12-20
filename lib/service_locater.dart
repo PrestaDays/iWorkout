@@ -8,6 +8,7 @@ import 'package:iworkout/features/auth/domain/usecases/signin_with_google.dart';
 import 'package:iworkout/features/workout/data/repositories/workout.dart';
 import 'package:iworkout/features/workout/data/source/workout_firebase_service.dart';
 import 'package:iworkout/features/workout/domain/repositories/workout.dart';
+import 'package:iworkout/features/workout/domain/usecases/create_workout.dart';
 import 'package:iworkout/features/workout/domain/usecases/delete_workout.dart';
 import 'package:iworkout/features/workout/domain/usecases/get_workout.dart';
 
@@ -30,5 +31,6 @@ void setupServiceLocator() {
   sl.registerSingleton<GetUserUseCase>(GetUserUseCase());
   sl.registerSingleton<GetWorkoutUseCase>(GetWorkoutUseCase());
   sl.registerSingleton<DeleteWorkoutUseCase>(DeleteWorkoutUseCase());
+  sl.registerSingleton<CreateWorkoutUseCase>(CreateWorkoutUseCase());
 
 }

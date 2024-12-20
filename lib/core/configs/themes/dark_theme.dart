@@ -6,20 +6,6 @@ const BlackMoonColor = Color(0xFF1F1F1F);
 ThemeData darkTheme = ThemeData(
   primaryColor: Colors.black,
   scaffoldBackgroundColor: BlackMoonColor,
-  iconTheme: const IconThemeData(
-    color: Colors.white, // Change your icon color here
-  ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      foregroundColor: Colors.white,
-      backgroundColor: PurpleMoonColor,
-      // White text on the button
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-    ),
-  ),
   floatingActionButtonTheme: const FloatingActionButtonThemeData(
     backgroundColor: PurpleMoonColor, // Background color of the FAB
     foregroundColor: Colors.white, // Color of the plus icon or label
