@@ -7,7 +7,7 @@ import 'button_state.dart';
 class ButtonStateCubit extends Cubit<ButtonState> {
   ButtonStateCubit() : super(ButtonInitialState());
 
-  void execute({dynamic params, required UseCase usecase}) async {
+  Future<void> execute({dynamic params, required UseCase usecase}) async {
     emit(ButtonLoadingState());
 
     try {

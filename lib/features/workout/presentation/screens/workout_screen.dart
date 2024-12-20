@@ -15,7 +15,7 @@ class WorkoutScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => WorkoutsBloc()..add(FetchWorkouts()),
+      create: (_) => WorkoutsBloc()..add(FetchWorkouts()),
       child: const WorkoutView(),
     );
   }
@@ -45,31 +45,39 @@ class _WorkoutViewState extends State<WorkoutView> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            BlocBuilder<WorkoutsBloc, WorkoutsState>(
+            Expanded(
+              child: BlocBuilder<WorkoutsBloc, WorkoutsState>(
                 builder: (context, state) {
                   if (state is WorkoutsLoading) {
                     return const Center(
-                        child: CircularProgressIndicator(color: Colors.white)
+                      child: CircularProgressIndicator(color: Colors.white),
                     );
                   } else if (state is WorkoutsLoadingFailure) {
-                    return Center(child: Text(state.errorMessage));
+                    return Center(
+                      child: Text(state.errorMessage),
+                    );
                   } else if (state is WorkoutsLoaded) {
-                    if (state.workouts.isEmpty) {
-                      return const Center(
-                        child: Text('Aucune séance d\'entraînement'),
-                      );
-                    }
-
-                    return Expanded(
-                      child: ListView(
-                        children: state.workouts
-                            .map((workoutItem) => _buildWorkoutCard(workoutItem, context))
-                            .toList(),
-                      ),
+                    return state.workouts.isEmpty
+                        ? const Center(
+                      child: Text('Aucune séance d\'entraînement'),
+                    )
+                        : ListView.builder(
+                      itemCount: state.workouts.length,
+                      itemBuilder: (context, index) {
+                        return WorkoutCard(
+                          workout: state.workouts[index],
+                          onDelete: (workoutId) {
+                            context.read<WorkoutsBloc>().add(
+                              DeleteWorkout(workoutId: workoutId),
+                            );
+                          },
+                        );
+                      },
                     );
                   }
                   return const SizedBox();
-                }
+                },
+              ),
             ),
           ],
         ),
@@ -85,8 +93,20 @@ class _WorkoutViewState extends State<WorkoutView> {
       ),
     );
   }
+}
 
-  Widget _buildWorkoutCard(WorkoutItem workoutItem, BuildContext context) {
+class WorkoutCard extends StatelessWidget {
+  final WorkoutItem workout;
+  final void Function(String workoutId) onDelete;
+
+  const WorkoutCard({
+    super.key,
+    required this.workout,
+    required this.onDelete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -97,7 +117,7 @@ class _WorkoutViewState extends State<WorkoutView> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Séance ${workoutItem.name}',
+                  'Séance ${workout.name}',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 IconButton(
@@ -109,9 +129,7 @@ class _WorkoutViewState extends State<WorkoutView> {
                           title: 'Confirmation',
                           content: 'Veux-tu vraiment supprimer cette séance?',
                           onConfirm: () {
-                            context.read<WorkoutsBloc>().add(
-                              DeleteWorkout(workoutId: workoutItem.id),
-                            );
+                            onDelete(workout.id);
                             Navigator.of(dialogContext).pop();
                           },
                         );
@@ -125,13 +143,13 @@ class _WorkoutViewState extends State<WorkoutView> {
                 ),
               ],
             ),
-            Text('Jour: ${workoutItem.day}'),
-            Text('Exercices: ${workoutItem.nbrOfExercice}'),
+            Text('Jour: ${workout.day}'),
+            Text('Exercices: ${workout.nbrOfExercice}'),
             const SizedBox(height: 8),
             PrimaryButton(
-              onPressed: (context) {
+              onPressed: (_) {
                 context.router.push(
-                    WorkoutDayRoute(id: workoutItem.id, day: workoutItem.day)
+                  WorkoutDayRoute(id: workout.id, day: workout.day),
                 );
               },
               content: const Text('Détails'),

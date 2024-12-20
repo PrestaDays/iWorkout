@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:iworkout/core/configs/themes/dark_theme.dart';
 import 'package:moon_design/moon_design.dart';
 
 class ComboboxSingleSelect extends StatefulWidget {
   final List<String> options;
   final List<TextInputFormatter> formatters;
   final String hintText;
+  final void Function(String)? onOptionSelected;
 
   const ComboboxSingleSelect({
     required this.options,
     this.formatters = const [],
     this.hintText = "Sélectionnez une option",
+    this.onOptionSelected,
     super.key,
   });
 
@@ -54,6 +57,7 @@ class _ComboboxSingleSelectState extends State<ComboboxSingleSelect> {
       _selectedOption = option;
       _focusNode.unfocus();
     });
+    widget.onOptionSelected?.call(_selectedOption!);
   }
 
   void _showAllOptionsList() {
@@ -88,6 +92,8 @@ class _ComboboxSingleSelectState extends State<ComboboxSingleSelect> {
   Widget build(BuildContext context) {
     return Center(
       child: MoonDropdown(
+        backgroundColor: MoonColors.dark.goku,
+        borderColor: PurpleMoonColor,
         show: _showDropdown,
         constrainWidthToChild: true,
         onTapOutside: () => _handleDropdownTapOutside(),
@@ -106,12 +112,14 @@ class _ComboboxSingleSelectState extends State<ComboboxSingleSelect> {
 
                     return MoonMenuItem(
                       onTap: () => _handleSelect(option),
-                      label: Text(option),
+                      label: Text(option, style: TextStyle(color: MoonColors.dark.bulma)),
                     );
                   },
                 ),
         ),
         child: MoonTextInput(
+          backgroundColor: MoonColors.dark.goku,
+          textColor: MoonColors.dark.bulma,
           focusNode: _focusNode,
           hintText: widget.hintText,
           controller: _searchController,
@@ -126,7 +134,7 @@ class _ComboboxSingleSelectState extends State<ComboboxSingleSelect> {
             icon: AnimatedRotation(
               duration: const Duration(milliseconds: 200),
               turns: _showDropdown ? -0.5 : 0,
-              child: const Icon(MoonIcons.controls_chevron_down_16_light),
+              child: Icon(MoonIcons.controls_chevron_down_16_light, color: MoonColors.dark.bulma),
             ),
           ),
         ),

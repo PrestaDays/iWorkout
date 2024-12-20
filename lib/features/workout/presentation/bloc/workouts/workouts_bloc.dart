@@ -30,6 +30,7 @@ class WorkoutsBloc extends Bloc<WorkoutsEvent, WorkoutsState> {
   ) async {
     emit(WorkoutsLoading());
 
+
     var userResult = await sl<GetUserUseCase>().call();
 
     if (userResult.isLeft()) {
@@ -44,6 +45,9 @@ class WorkoutsBloc extends Bloc<WorkoutsEvent, WorkoutsState> {
 
     var result = await sl<GetWorkoutUseCase>()
         .call(param: GetWorkoutsReqParams(userId: user.id));
+
+    print("${result}");
+
 
     result.fold(
         (error) => emit(WorkoutsLoadingFailure(errorMessage: error.toString())),

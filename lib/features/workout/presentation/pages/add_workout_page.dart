@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iworkout/core/common/blocs/button/button_cubit.dart';
 import 'package:iworkout/core/common/widgets/buttons/primary_button.dart';
 import 'package:iworkout/core/common/widgets/forms/text_input.dart';
+import 'package:iworkout/core/common/widgets/inputs/combobox_single_select.dart';
 import 'package:iworkout/features/workout/data/models/create_workouts_req_params.dart';
 import 'package:iworkout/features/workout/domain/usecases/create_workout.dart';
 import 'package:iworkout/service_locater.dart';
@@ -19,8 +20,10 @@ class AddWorkoutPage extends StatefulWidget {
 
 
 class _AddWorkoutScreenState extends State<AddWorkoutPage> {
-  final TextEditingController _textController = TextEditingController();
-  final TextEditingController _editingController = TextEditingController();
+  final TextEditingController _nameTextEditController = TextEditingController();
+  String _weekDay = "";
+
+  final List<String> weekDays = ["Lundi", "Mardi", "Mercredi", "Jeudi", "Vendredi", "Samedi", "Dimanche"];
 
   @override
   Widget build(BuildContext context) {
@@ -37,22 +40,20 @@ class _AddWorkoutScreenState extends State<AddWorkoutPage> {
                   children: [
                     TextInput(
                       leading: const Icon(Icons.search, color: Colors.white),
-                      textController: _textController,
-                      validator: (String? value) =>
-                          value != null && value.length < 5
-                              ? "The text should be longer than 5 characters."
-                              : null,
-                      hintText: "Nom de le la séance",
-                    ),
-
-                    TextInput(
-                      leading: const Icon(Icons.search, color: Colors.white),
-                      textController: _editingController,
+                      textController: _nameTextEditController,
                       validator: (String? value) =>
                       value != null && value.length < 5
                           ? "The text should be longer than 5 characters."
                           : null,
-                      hintText: "Jour de la séance",
+                      hintText: "Nom de le la séance",
+                    ),
+                    const SizedBox(height: 16),
+                    ComboboxSingleSelect(
+                      hintText: "Jour de la semaine",
+                      options: weekDays,
+                      onOptionSelected: (String value) {
+                        _weekDay = value;
+                      },
                     ),
                     const SizedBox(height: 16),
                     PrimaryButton(
@@ -60,13 +61,14 @@ class _AddWorkoutScreenState extends State<AddWorkoutPage> {
                         onSuccess: () {
                           context.router.back();
                         },
-                        onPressed: (context) {
-
-                          BlocProvider.of<ButtonStateCubit>(context).execute(
+                        onPressed: (context) async {
+                          await BlocProvider.of<ButtonStateCubit>(context).execute(
                             usecase: sl<CreateWorkoutUseCase>(),
-                            params: CreateWorkoutsReqParams(name: _textController.text, day: _editingController.text),
+                            params: CreateWorkoutsReqParams(
+                                name: _nameTextEditController.text,
+                                day: _weekDay
+                            ),
                           );
-
                         },
                         content: const Text("Créer ma séance")
                     )

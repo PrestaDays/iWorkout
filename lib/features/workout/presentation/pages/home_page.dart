@@ -23,7 +23,6 @@ class _HomePageState extends State<HomePage> {
      HomeScreen(),
      WorkoutScreen(),
      ProgressScreen(),
-    //ajout profil
      ProfileScreen(),
 
   ];
@@ -36,7 +35,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-                          context.router.replace(const EnterUserInformationsRoute());
+                        //  context.router.replace(const EnterUserInformationsRoute());
     return Scaffold(
         body: _children[_currentIndex],
         bottomNavigationBar:

@@ -84,7 +84,7 @@ class PrimaryButton extends StatelessWidget {
       ),
       child: MoonFilledButton(
         buttonSize: buttonSize,
-        onTap: () {
+        onTap: () async {
           if (onPressed is ButtonContextCallback) {
             (onPressed as ButtonContextCallback)(context);
           } else {
