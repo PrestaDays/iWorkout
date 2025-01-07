@@ -15,8 +15,8 @@ class EnterUserInformationsPage extends StatelessWidget {
   const EnterUserInformationsPage({super.key});
   @override
   Widget build(BuildContext context) {
-    const ageMin = 16;
-    const ageMax = 99;
+    const AGE_MIN = 16;
+    const AGE_MAX = 99;
 
     
     context.router.replace(const HomeRoute());
@@ -43,11 +43,11 @@ class EnterUserInformationsPage extends StatelessWidget {
               SizedBox(height: 40),
               BlocProvider(
                 create: (context) => ButtonStateCubit(),
-                child: PrimaryButton(
-                    onPressed: () => {
-                    }, 
-                    content: Text('Envoyer')
-                ),
+                // child: PrimaryButton(
+                //     onPressed: () => {
+                //     }, 
+                //     content: Text('Envoyer')
+                // ),
               )
             ],
           ),
