@@ -54,7 +54,6 @@ class LoginPage extends StatelessWidget {
                   child: BlocListener<ButtonStateCubit, ButtonState>(
                     listener: (context, state) {
                       if (state is ButtonSuccessState) {
-                        print("HEREEE");
                         context.router.replace(const HomeRoute());
                         return;
                       }
