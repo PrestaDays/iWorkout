@@ -107,8 +107,8 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
-          onPressed: () {
-            context.read<ButtonStateCubit>().excute(
+          onPressed: (_) {
+            context.read<ButtonStateCubit>().execute(
                   usecase: sl<SigninWithGoogleUseCase>(),
                 );
           });
@@ -138,7 +138,7 @@ class LoginPage extends StatelessWidget {
               ),
             ],
           ),
-          onPressed: () {
+          onPressed: (_) {
             throw UnimplementedError("Sign in with Apple is not implemented");
             // context.read<ButtonStateCubit>().excute(
             //       usecase: sl<SigninWithGoogleUseCase>(),

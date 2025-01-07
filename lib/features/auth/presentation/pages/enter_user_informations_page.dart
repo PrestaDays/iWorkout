@@ -15,9 +15,11 @@ class EnterUserInformationsPage extends StatelessWidget {
   const EnterUserInformationsPage({super.key});
   @override
   Widget build(BuildContext context) {
-    const AGE_MIN = 16;
-    const AGE_MAX = 99;
+    const ageMin = 16;
+    const ageMax = 99;
 
+    
+    context.router.replace(const HomeRoute());
     return Scaffold(
         appBar: AppBar(
           title: const Text('Entrez vos informations'),

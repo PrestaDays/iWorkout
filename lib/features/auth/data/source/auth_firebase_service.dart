@@ -27,10 +27,8 @@ class AuthApiServiceImpl extends AuthApiService {
         // The user canceled the sign-in
         throw AssertionError('Failed to sign in with Google');
       }
-      print("GoogleSignInAccount $googleUser");
 
       final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
-      print("GoogleSignInAuthentication $googleAuth");
 
       if (googleAuth.accessToken == null && googleAuth.idToken == null) {
         throw AssertionError('At least one of ID token and access token is required');
@@ -45,7 +43,6 @@ class AuthApiServiceImpl extends AuthApiService {
       await _setUserInFirestore(userCredential.user);
       return Right(userCredential.user);
     } catch (e) {
-      print("CATCH $e");
       return Left(e);
     }
   }

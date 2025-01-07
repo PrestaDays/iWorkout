@@ -1,15 +1,34 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iworkout/core/common/widgets/buttons/primary_button.dart';
+import 'package:iworkout/core/common/widgets/moon_confirm_dialog.dart';
 import 'package:iworkout/core/routes/app_router.gr.dart';
 import 'package:iworkout/features/workout/domain/entities/workout.dart';
-import 'package:iworkout/features/workout/presentation/bloc/workouts/workouts_cubit.dart';
+import 'package:iworkout/features/workout/presentation/bloc/workouts/workouts_bloc.dart';
+import 'package:iworkout/features/workout/presentation/bloc/workouts/workouts_event.dart';
 import 'package:iworkout/features/workout/presentation/bloc/workouts/workouts_state.dart';
-import 'package:iworkout/features/workout/presentation/pages/add_workout_page.dart';
 
 class WorkoutScreen extends StatelessWidget {
   const WorkoutScreen({super.key});
 
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => WorkoutsBloc()..add(FetchWorkouts()),
+      child: const WorkoutView(),
+    );
+  }
+}
+
+class WorkoutView extends StatefulWidget {
+  const WorkoutView({super.key});
+
+  @override
+  State<WorkoutView> createState() => _WorkoutViewState();
+}
+
+class _WorkoutViewState extends State<WorkoutView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,43 +41,73 @@ class WorkoutScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              'Séances d\'entraînement',
+              'Vos séances d\'entraînement',
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
-            BlocProvider(
-              create: (context) => WorkoutsCubit()..execute(),
-              child: BlocBuilder<WorkoutsCubit, WorkoutsState>(
-                  builder: (context, state) {
-                if (state is WorkoutsLoading) {
-                  return const Center(
-                      child: CircularProgressIndicator(color: Colors.white));
-                } else if (state is WorkoutsLoadingFailure) {
-                  return Center(child: Text(state.errorMessage));
-                } else if (state is WorkoutsLoaded) {
-                  return Expanded(
-                    child: ListView(
-                      children: state.workouts
-                          .map((workoutItem) => _buildWorkoutCard(workoutItem, context)).toList(),
-                    ),
-                  );
-                }
-                return const SizedBox();
-              }),
+            Expanded(
+              child: BlocBuilder<WorkoutsBloc, WorkoutsState>(
+                builder: (context, state) {
+                  if (state is WorkoutsLoading) {
+                    return const Center(
+                      child: CircularProgressIndicator(color: Colors.white),
+                    );
+                  } else if (state is WorkoutsLoadingFailure) {
+                    return Center(
+                      child: Text(state.errorMessage),
+                    );
+                  } else if (state is WorkoutsLoaded) {
+                    return state.workouts.isEmpty
+                        ? const Center(
+                      child: Text('Aucune séance d\'entraînement'),
+                    )
+                        : ListView.builder(
+                      itemCount: state.workouts.length,
+                      itemBuilder: (context, index) {
+                        return WorkoutCard(
+                          workout: state.workouts[index],
+                          onDelete: (workoutId) {
+                            context.read<WorkoutsBloc>().add(
+                              DeleteWorkout(workoutId: workoutId),
+                            );
+                          },
+                        );
+                      },
+                    );
+                  }
+                  return const SizedBox();
+                },
+              ),
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          context.router.push(const AddWorkoutRoute());
+        onPressed: () async {
+          await context.router.push(const AddWorkoutRoute());
+          if (mounted) {
+            context.read<WorkoutsBloc>().add(FetchWorkouts());
+          };
+
         },
         child: const Icon(Icons.add),
       ),
     );
   }
+}
 
-  Widget _buildWorkoutCard(WorkoutItem workoutItem, BuildContext context) {
+class WorkoutCard extends StatelessWidget {
+  final WorkoutItem workout;
+  final void Function(String workoutId) onDelete;
+
+  const WorkoutCard({
+    super.key,
+    required this.workout,
+    required this.onDelete,
+  });
+
+  @override
+  Widget build(BuildContext context) {
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -67,29 +116,45 @@ class WorkoutScreen extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
               children: [
                 Text(
-                  'Séance ${workoutItem.name}',
+                  'Séance ${workout.name}',
                   style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
                 IconButton(
-
                   onPressed: () {
-                   // context.router.push(AddWorkoutRoute(id: workoutItem.id));
+                    showDialog(
+                      context: context,
+                      builder: (dialogContext) {
+                        return ConfirmDialog(
+                          title: 'Confirmation',
+                          content: 'Veux-tu vraiment supprimer cette séance?',
+                          onConfirm: (_) async {
+                            onDelete(workout.id);
+                            Navigator.of(dialogContext).pop();
+                          },
+                        );
+                      },
+                    );
                   },
-                  icon: const Icon(Icons.close, color: Colors.redAccent,),
+                  icon: const Icon(
+                    Icons.close,
+                    color: Colors.redAccent,
+                  ),
                 ),
               ],
             ),
-            Text('Jour: ${workoutItem.day}'),
-            Text('Exercices: ${workoutItem.nbrOfExercice}'),
+            Text('Jour: ${workout.day}'),
+            Text('Exercices: ${workout.nbrOfExercice}'),
             const SizedBox(height: 8),
-            ElevatedButton(
-              onPressed: () {
-                context.router.push(WorkoutDayRoute(id: workoutItem.id, day: workoutItem.day));
+            PrimaryButton(
+              onPressed: (_) async {
+                context.router.push(
+                  WorkoutDayRoute(id: workout.id, day: workout.day),
+                );
               },
-              child: const Text('Voir détails'),
+              content: const Text('Détails'),
+              leading: const Icon(Icons.info),
             ),
           ],
         ),

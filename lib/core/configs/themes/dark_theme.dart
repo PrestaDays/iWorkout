@@ -1,29 +1,20 @@
 import 'package:flutter/material.dart';
 
+const PurpleMoonColor = Color(0xFF5C33CF);
+const BlackMoonColor = Color(0xFF1F1F1F);
+
 ThemeData darkTheme = ThemeData(
   primaryColor: Colors.black,
-  scaffoldBackgroundColor: Colors.grey[900],
-  iconTheme: const IconThemeData(
-    color: Colors.white, // Change your icon color here
+  scaffoldBackgroundColor: BlackMoonColor,
+  floatingActionButtonTheme: const FloatingActionButtonThemeData(
+    backgroundColor: PurpleMoonColor, // Background color of the FAB
+    foregroundColor: Colors.white, // Color of the plus icon or label
   ),
-  elevatedButtonTheme: ElevatedButtonThemeData(
-    style: ElevatedButton.styleFrom(
-      foregroundColor: Colors.white,
-      backgroundColor: Colors.blue[700],
-      // White text on the button
-      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(8),
-      ),
-    ),
-  ),
-  floatingActionButtonTheme: FloatingActionButtonThemeData(
-    backgroundColor: Colors.blue[700],
-  ),
-  appBarTheme: AppBarTheme(
-    backgroundColor: Colors.grey[900],
+
+  appBarTheme: const AppBarTheme(
+    backgroundColor: BlackMoonColor,
     elevation: 0,
-    titleTextStyle: const TextStyle(
+    titleTextStyle: TextStyle(
         letterSpacing: 1.2,
         color: Colors.white,
         fontFamily: "Poppins",

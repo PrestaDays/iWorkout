@@ -25,6 +25,7 @@ class _FloatingBottomNavigationBarState extends State<FloatingBottomNavigationBa
     Icon(Icons.home),
     Icon(Icons.fitness_center),
     Icon(Icons.show_chart),
+    Icon(Icons.person),
   ];
 
   @override
